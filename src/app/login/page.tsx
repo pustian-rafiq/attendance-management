@@ -43,22 +43,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-6 md:p-8">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardHeader className="space-y-1 text-center px-4 sm:px-6">
           <div className="flex justify-center mb-4">
-            <div className="bg-primary p-3 rounded-full">
-              <GraduationCap className="h-8 w-8 text-primary-foreground" />
+            <div className="bg-primary p-2 sm:p-3 rounded-full">
+              <GraduationCap className="h-6 w-6 sm:h-8 sm:w-8 text-primary-foreground" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">
+          <CardTitle className="text-xl sm:text-2xl font-bold">
             Class Attendance Management
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-sm sm:text-base">
             Sign in to manage your class attendance
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 sm:px-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -110,21 +110,21 @@ export default function LoginPage() {
                 </span>
               </div>
             </div>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-2 text-xs sm:text-sm">
               <div className="p-3 bg-muted rounded-lg">
                 <p className="font-medium mb-1">Teacher Account:</p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground break-all">
                   Email: teacher@gmail.com
                 </p>
-                <p className="text-muted-foreground">Password: test123</p>
+                <p className="text-muted-foreground">Password: any password</p>
               </div>
-              {/* <div className="p-3 bg-muted rounded-lg">
+              <div className="p-3 bg-muted rounded-lg">
                 <p className="font-medium mb-1">Admin Account:</p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground break-all">
                   Email: admin@example.com
                 </p>
                 <p className="text-muted-foreground">Password: any password</p>
-              </div> */}
+              </div>
             </div>
           </div>
         </CardContent>

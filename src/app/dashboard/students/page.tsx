@@ -81,21 +81,21 @@ export default function StudentsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Students</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Students</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Manage and view student information
           </p>
         </div>
-        <Button onClick={handleExport}>
+        <Button onClick={handleExport} className="w-full sm:w-auto">
           <Download className="mr-2 h-4 w-4" />
           Export
         </Button>
       </div>
 
       {/* Statistics */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
@@ -151,7 +151,7 @@ export default function StudentsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -216,18 +216,18 @@ export default function StudentsPage() {
           </CardTitle>
           <CardDescription>View and manage student information</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Student</TableHead>
-                <TableHead>Student ID</TableHead>
-                <TableHead>Contact</TableHead>
-                <TableHead>Department</TableHead>
-                <TableHead>Semester</TableHead>
-                <TableHead>Batch</TableHead>
+                <TableHead className="min-w-[200px]">Student</TableHead>
+                <TableHead className="hidden lg:table-cell">Student ID</TableHead>
+                <TableHead className="hidden md:table-cell min-w-[180px]">Contact</TableHead>
+                <TableHead className="hidden xl:table-cell">Department</TableHead>
+                <TableHead className="hidden sm:table-cell">Semester</TableHead>
+                <TableHead className="hidden md:table-cell">Batch</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="text-right hidden sm:table-cell">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -238,47 +238,50 @@ export default function StudentsPage() {
                 return (
                   <TableRow key={student.id}>
                     <TableCell>
-                      <div className="flex items-center space-x-3">
-                        <Avatar>
+                      <div className="flex items-center space-x-2 sm:space-x-3">
+                        <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                           <AvatarImage src={student.avatar} />
-                          <AvatarFallback>
+                          <AvatarFallback className="text-xs sm:text-sm">
                             {getInitials(student.name)}
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-medium">{student.name}</p>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="font-medium text-sm sm:text-base">{student.name}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">
                             Roll: {student.rollNumber}
+                          </p>
+                          <p className="text-xs text-muted-foreground sm:hidden">
+                            {student.semester} • {student.batch}
                           </p>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="font-mono text-sm">
+                    <TableCell className="font-mono text-xs sm:text-sm hidden lg:table-cell">
                       {student.studentId}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell">
                       <div className="space-y-1">
-                        <div className="flex items-center text-sm">
-                          <Mail className="mr-2 h-3 w-3 text-muted-foreground" />
-                          {student.email}
+                        <div className="flex items-center text-xs sm:text-sm">
+                          <Mail className="mr-2 h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          <span className="truncate max-w-[150px]">{student.email}</span>
                         </div>
-                        <div className="flex items-center text-sm">
-                          <Phone className="mr-2 h-3 w-3 text-muted-foreground" />
+                        <div className="flex items-center text-xs sm:text-sm">
+                          <Phone className="mr-2 h-3 w-3 text-muted-foreground flex-shrink-0" />
                           {student.phone}
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden xl:table-cell">
                       <div>
-                        <p className="font-medium">{department?.code}</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="font-medium text-sm">{department?.code}</p>
+                        <p className="text-xs text-muted-foreground truncate max-w-[120px]">
                           {department?.name}
                         </p>
                       </div>
                     </TableCell>
-                    <TableCell>{student.semester}</TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">{student.batch}</Badge>
+                    <TableCell className="hidden sm:table-cell text-sm">{student.semester}</TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <Badge variant="secondary" className="text-xs">{student.batch}</Badge>
                     </TableCell>
                     <TableCell>
                       <Badge
@@ -289,11 +292,12 @@ export default function StudentsPage() {
                             ? "warning"
                             : "info"
                         }
+                        className="text-xs"
                       >
                         {student.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right hidden sm:table-cell">
                       <Button variant="ghost" size="sm">
                         <Eye className="h-4 w-4" />
                       </Button>

@@ -70,26 +70,30 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
         className="fixed inset-0 z-40 bg-black/50 lg:hidden"
         onClick={onClose}
       />
-      <aside className="fixed inset-y-0 left-0 z-50 w-72 bg-card border-r lg:hidden">
-        <div className="flex items-center justify-between p-6">
+      <aside className="fixed inset-y-0 left-0 z-50 w-64 sm:w-72 bg-card border-r lg:hidden shadow-lg">
+        <div className="flex items-center justify-between p-4 sm:p-6">
           <Link
             href="/dashboard"
             className="flex items-center space-x-2"
             onClick={onClose}
           >
-            <div className="bg-primary p-2 rounded-lg">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
+            <div className="bg-primary p-2 rounded-lg flex-shrink-0">
+              <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
             </div>
-            <div>
-              <h2 className="text-lg font-bold">Attendance</h2>
-              <p className="text-xs text-muted-foreground">Management System</p>
+            <div className="min-w-0">
+              <h2 className="text-base sm:text-lg font-bold truncate">
+                Attendance
+              </h2>
+              <p className="text-xs text-muted-foreground truncate">
+                Management System
+              </p>
             </div>
           </Link>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-6 w-6" />
           </Button>
         </div>
-        <nav className="px-4 pb-4">
+        <nav className="px-3 sm:px-4 pb-4">
           <ul className="space-y-1">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -100,14 +104,16 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                     href={item.href}
                     onClick={onClose}
                     className={cn(
-                      "flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors",
+                      "flex items-center space-x-3 px-3 sm:px-4 py-3 rounded-lg transition-colors active:scale-95",
                       isActive
                         ? "bg-primary text-primary-foreground"
                         : "hover:bg-muted text-muted-foreground hover:text-foreground"
                     )}
                   >
-                    <Icon className="h-5 w-5" />
-                    <span className="font-medium">{item.title}</span>
+                    <Icon className="h-5 w-5 flex-shrink-0" />
+                    <span className="font-medium text-sm sm:text-base">
+                      {item.title}
+                    </span>
                   </Link>
                 </li>
               );

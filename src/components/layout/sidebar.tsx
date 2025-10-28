@@ -56,19 +56,23 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:border-r lg:bg-card">
-      <div className="p-6">
+    <aside className="hidden lg:flex lg:flex-col lg:w-64 xl:w-72 lg:border-r lg:bg-card">
+      <div className="p-4 lg:p-6">
         <Link href="/dashboard" className="flex items-center space-x-2">
-          <div className="bg-primary p-2 rounded-lg">
-            <GraduationCap className="h-6 w-6 text-primary-foreground" />
+          <div className="bg-primary p-2 rounded-lg flex-shrink-0">
+            <GraduationCap className="h-5 w-5 lg:h-6 lg:w-6 text-primary-foreground" />
           </div>
-          <div>
-            <h2 className="text-lg font-bold">Attendance</h2>
-            <p className="text-xs text-muted-foreground">Management System</p>
+          <div className="min-w-0">
+            <h2 className="text-base lg:text-lg font-bold truncate">
+              Attendance
+            </h2>
+            <p className="text-xs text-muted-foreground truncate">
+              Management System
+            </p>
           </div>
         </Link>
       </div>
-      <nav className="flex-1 px-4 pb-4">
+      <nav className="flex-1 px-3 lg:px-4 pb-4">
         <ul className="space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -78,14 +82,16 @@ export function Sidebar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors",
+                    "flex items-center space-x-2 lg:space-x-3 px-3 lg:px-4 py-2.5 lg:py-3 rounded-lg transition-colors",
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "hover:bg-muted text-muted-foreground hover:text-foreground"
                   )}
                 >
-                  <Icon className="h-5 w-5" />
-                  <span className="font-medium">{item.title}</span>
+                  <Icon className="h-4 w-4 lg:h-5 lg:w-5 flex-shrink-0" />
+                  <span className="font-medium text-sm lg:text-base truncate">
+                    {item.title}
+                  </span>
                 </Link>
               </li>
             );

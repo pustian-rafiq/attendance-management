@@ -144,13 +144,13 @@ export default function AttendancePage() {
       {/* Course Selection */}
       <Card>
         <CardHeader>
-          <CardTitle>Select Course</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-lg sm:text-xl">Select Course</CardTitle>
+          <CardDescription className="text-sm">
             Choose the course and date for attendance
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             <div className="space-y-2">
               <Label>Course</Label>
               <Select value={selectedCourse} onValueChange={handleCourseSelect}>
@@ -207,7 +207,7 @@ export default function AttendancePage() {
       {selectedCourse && studentAttendances.length > 0 && (
         <>
           {/* Statistics */}
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Present</CardTitle>
@@ -257,61 +257,82 @@ export default function AttendancePage() {
           {/* Student List */}
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div>
-                  <CardTitle>Student Attendance</CardTitle>
-                  <CardDescription>
+                  <CardTitle className="text-lg sm:text-xl">
+                    Student Attendance
+                  </CardTitle>
+                  <CardDescription className="text-sm">
                     Mark attendance for each student
                   </CardDescription>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <div className="relative">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                  <div className="relative flex-1 sm:flex-initial">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                       placeholder="Search students..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-8 w-64"
+                      className="pl-8 w-full sm:w-64"
                     />
                   </div>
-                  <Button onClick={handleSaveAttendance} disabled={isSaved}>
+                  <Button
+                    onClick={handleSaveAttendance}
+                    disabled={isSaved}
+                    className="w-full sm:w-auto"
+                  >
                     <Save className="mr-2 h-4 w-4" />
                     {isSaved ? "Saved!" : "Save Attendance"}
                   </Button>
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Student</TableHead>
-                    <TableHead>Roll Number</TableHead>
-                    <TableHead>Present</TableHead>
-                    <TableHead>Absent</TableHead>
-                    <TableHead>Late</TableHead>
-                    <TableHead>Excused</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead className="min-w-[180px]">Student</TableHead>
+                    <TableHead className="hidden sm:table-cell">
+                      Roll Number
+                    </TableHead>
+                    <TableHead className="text-center">Present</TableHead>
+                    <TableHead className="text-center">Absent</TableHead>
+                    <TableHead className="text-center hidden md:table-cell">
+                      Late
+                    </TableHead>
+                    <TableHead className="text-center hidden md:table-cell">
+                      Excused
+                    </TableHead>
+                    <TableHead className="hidden lg:table-cell">
+                      Status
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredStudents.map((student) => (
                     <TableRow key={student.studentId}>
                       <TableCell>
-                        <div className="flex items-center space-x-3">
-                          <Avatar>
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                             <AvatarImage src={student.avatar} />
-                            <AvatarFallback>
+                            <AvatarFallback className="text-xs sm:text-sm">
                               {getInitials(student.studentName)}
                             </AvatarFallback>
                           </Avatar>
-                          <span className="font-medium">
-                            {student.studentName}
-                          </span>
+                          <div className="flex flex-col">
+                            <span className="font-medium text-sm sm:text-base">
+                              {student.studentName}
+                            </span>
+                            <span className="text-xs text-muted-foreground sm:hidden">
+                              Roll: {student.rollNumber}
+                            </span>
+                          </div>
                         </div>
                       </TableCell>
-                      <TableCell>{student.rollNumber}</TableCell>
-                      <TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        {student.rollNumber}
+                      </TableCell>
+                      <TableCell className="text-center">
                         <Checkbox
                           checked={student.status === "present"}
                           onCheckedChange={() =>
@@ -319,7 +340,7 @@ export default function AttendancePage() {
                           }
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-center">
                         <Checkbox
                           checked={student.status === "absent"}
                           onCheckedChange={() =>
@@ -327,7 +348,7 @@ export default function AttendancePage() {
                           }
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-center hidden md:table-cell">
                         <Checkbox
                           checked={student.status === "late"}
                           onCheckedChange={() =>
@@ -335,7 +356,7 @@ export default function AttendancePage() {
                           }
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-center hidden md:table-cell">
                         <Checkbox
                           checked={student.status === "excused"}
                           onCheckedChange={() =>
@@ -343,7 +364,7 @@ export default function AttendancePage() {
                           }
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden lg:table-cell">
                         <Badge
                           variant={
                             student.status === "present"
@@ -354,6 +375,7 @@ export default function AttendancePage() {
                               ? "warning"
                               : "info"
                           }
+                          className="text-xs"
                         >
                           {student.status.charAt(0).toUpperCase() +
                             student.status.slice(1)}

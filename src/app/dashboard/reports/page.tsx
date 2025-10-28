@@ -163,16 +163,16 @@ export default function ReportsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
           Reports & Analytics
         </h2>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           View attendance reports and analytics for your courses
         </p>
       </div>
 
       {/* Overall Statistics */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
@@ -234,7 +234,7 @@ export default function ReportsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
             <Select value={selectedCourse} onValueChange={setSelectedCourse}>
               <SelectTrigger>
                 <SelectValue placeholder="Select Course" />
@@ -273,32 +273,49 @@ export default function ReportsPage() {
         <TabsContent value="student" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div>
-                  <CardTitle>Student Attendance Report</CardTitle>
-                  <CardDescription>
+                  <CardTitle className="text-lg sm:text-xl">
+                    Student Attendance Report
+                  </CardTitle>
+                  <CardDescription className="text-sm">
                     Detailed attendance records for all students
                   </CardDescription>
                 </div>
-                <Button onClick={handleExportAttendanceSummary}>
+                <Button
+                  onClick={handleExportAttendanceSummary}
+                  className="w-full sm:w-auto"
+                >
                   <Download className="mr-2 h-4 w-4" />
                   Export
                 </Button>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Student Name</TableHead>
-                    <TableHead>Course</TableHead>
-                    <TableHead>Total Classes</TableHead>
-                    <TableHead>Present</TableHead>
-                    <TableHead>Absent</TableHead>
-                    <TableHead>Late</TableHead>
-                    <TableHead>Excused</TableHead>
+                    <TableHead className="min-w-[150px]">
+                      Student Name
+                    </TableHead>
+                    <TableHead className="hidden md:table-cell min-w-[180px]">
+                      Course
+                    </TableHead>
+                    <TableHead className="hidden sm:table-cell">
+                      Total Classes
+                    </TableHead>
+                    <TableHead className="text-center">Present</TableHead>
+                    <TableHead className="text-center">Absent</TableHead>
+                    <TableHead className="text-center hidden lg:table-cell">
+                      Late
+                    </TableHead>
+                    <TableHead className="text-center hidden lg:table-cell">
+                      Excused
+                    </TableHead>
                     <TableHead>Percentage</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Status
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -306,33 +323,53 @@ export default function ReportsPage() {
                     const status = getAttendanceStatus(record.percentage);
                     return (
                       <TableRow key={index}>
-                        <TableCell className="font-medium">
-                          {record.studentName}
+                        <TableCell className="font-medium text-sm sm:text-base">
+                          <div className="flex flex-col">
+                            <span>{record.studentName}</span>
+                            <span className="text-xs text-muted-foreground md:hidden">
+                              {record.courseName}
+                            </span>
+                          </div>
                         </TableCell>
-                        <TableCell>{record.courseName}</TableCell>
-                        <TableCell>{record.totalClasses}</TableCell>
-                        <TableCell>
-                          <Badge variant="success">{record.present}</Badge>
+                        <TableCell className="hidden md:table-cell text-sm">
+                          {record.courseName}
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell text-sm">
+                          {record.totalClasses}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Badge variant="success" className="text-xs">
+                            {record.present}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Badge variant="destructive" className="text-xs">
+                            {record.absent}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-center hidden lg:table-cell">
+                          <Badge variant="warning" className="text-xs">
+                            {record.late}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-center hidden lg:table-cell">
+                          <Badge variant="info" className="text-xs">
+                            {record.excused}
+                          </Badge>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="destructive">{record.absent}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="warning">{record.late}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="info">{record.excused}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <span className={status.color}>
+                          <span
+                            className={`${status.color} text-sm font-medium`}
+                          >
                             {record.percentage}%
                           </span>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="hidden md:table-cell">
                           <Badge
                             variant={
                               record.percentage >= 75 ? "success" : "warning"
                             }
+                            className="text-xs"
                           >
                             {status.label}
                           </Badge>
@@ -359,14 +396,19 @@ export default function ReportsPage() {
         <TabsContent value="course" className="space-y-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div>
-                  <CardTitle>Course Statistics</CardTitle>
-                  <CardDescription>
+                  <CardTitle className="text-lg sm:text-xl">
+                    Course Statistics
+                  </CardTitle>
+                  <CardDescription className="text-sm">
                     Attendance statistics for each course
                   </CardDescription>
                 </div>
-                <Button onClick={handleExportCourseStats}>
+                <Button
+                  onClick={handleExportCourseStats}
+                  className="w-full sm:w-auto"
+                >
                   <Download className="mr-2 h-4 w-4" />
                   Export
                 </Button>
@@ -381,10 +423,12 @@ export default function ReportsPage() {
                       key={stat.courseId}
                       className="p-4 border rounded-lg space-y-3"
                     >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{stat.courseName}</h3>
-                          <p className="text-sm text-muted-foreground">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sm sm:text-base truncate">
+                            {stat.courseName}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-muted-foreground">
                             {stat.courseCode}
                           </p>
                         </div>
@@ -392,28 +436,35 @@ export default function ReportsPage() {
                           variant={
                             stat.averageAttendance >= 75 ? "success" : "warning"
                           }
+                          className="text-xs w-fit"
                         >
                           {status.label}
                         </Badge>
                       </div>
-                      <div className="grid grid-cols-3 gap-4 text-sm">
+                      <div className="grid grid-cols-3 gap-2 sm:gap-4 text-sm">
                         <div>
-                          <p className="text-muted-foreground">Students</p>
-                          <p className="font-medium text-lg">
+                          <p className="text-xs sm:text-sm text-muted-foreground">
+                            Students
+                          </p>
+                          <p className="font-medium text-base sm:text-lg">
                             {stat.totalStudents}
                           </p>
                         </div>
                         <div>
-                          <p className="text-muted-foreground">Classes</p>
-                          <p className="font-medium text-lg">
+                          <p className="text-xs sm:text-sm text-muted-foreground">
+                            Classes
+                          </p>
+                          <p className="font-medium text-base sm:text-lg">
                             {stat.totalClasses}
                           </p>
                         </div>
                         <div>
-                          <p className="text-muted-foreground">
+                          <p className="text-xs sm:text-sm text-muted-foreground">
                             Avg Attendance
                           </p>
-                          <p className={`font-medium text-lg ${status.color}`}>
+                          <p
+                            className={`font-medium text-base sm:text-lg ${status.color}`}
+                          >
                             {stat.averageAttendance}%
                           </p>
                         </div>

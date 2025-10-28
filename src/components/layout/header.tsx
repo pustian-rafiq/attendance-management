@@ -30,40 +30,40 @@ export function Header({ onMenuClick }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background">
-      <div className="flex h-16 items-center justify-between px-4 lg:px-6">
-        <div className="flex items-center space-x-4">
+      <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 lg:px-6">
+        <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0">
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="lg:hidden flex-shrink-0"
             onClick={onMenuClick}
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
           </Button>
-          <div>
-            <h1 className="text-xl font-bold">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-base sm:text-lg lg:text-xl font-bold truncate">
               {user?.role === "teacher"
                 ? "Teacher Dashboard"
                 : user?.role === "admin"
                 ? "Admin Dashboard"
                 : "Dashboard"}
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground truncate">
               Welcome back, {user?.name}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="relative h-10 w-10 rounded-full"
+                className="relative h-8 w-8 sm:h-10 sm:w-10 rounded-full"
               >
-                <Avatar>
+                <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                   <AvatarImage src={user?.avatar} alt={user?.name} />
-                  <AvatarFallback>
+                  <AvatarFallback className="text-xs sm:text-sm">
                     {user?.name ? getInitials(user.name) : "U"}
                   </AvatarFallback>
                 </Avatar>

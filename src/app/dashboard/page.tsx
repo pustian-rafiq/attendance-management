@@ -80,16 +80,16 @@ export default function DashboardPage() {
     <div className="space-y-6">
       {/* Welcome Section */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
           Welcome back, {user?.name}!
         </h2>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           Here&apos;s an overview of your class attendance management
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Total Courses"
           value={totalCourses}
@@ -116,7 +116,7 @@ export default function DashboardPage() {
         />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Today's Classes */}
         <Card>
           <CardHeader>
@@ -142,11 +142,13 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={course.id}
-                      className="flex items-center justify-between p-4 border rounded-lg"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border rounded-lg gap-3 sm:gap-4"
                     >
-                      <div>
-                        <p className="font-medium">{course.name}</p>
-                        <p className="text-sm text-muted-foreground">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm sm:text-base">
+                          {course.name}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           {course.code} • {schedule?.startTime} -{" "}
                           {schedule?.endTime}
                         </p>
@@ -154,8 +156,11 @@ export default function DashboardPage() {
                           Room: {schedule?.roomNumber}
                         </p>
                       </div>
-                      <Link href="/dashboard/attendance">
-                        <Button size="sm">
+                      <Link
+                        href="/dashboard/attendance"
+                        className="w-full sm:w-auto"
+                      >
+                        <Button size="sm" className="w-full sm:w-auto">
                           Take Attendance
                           <ChevronRight className="ml-1 h-4 w-4" />
                         </Button>
@@ -222,16 +227,18 @@ export default function DashboardPage() {
             Overview of all your assigned courses
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Course Code</TableHead>
-                <TableHead>Course Name</TableHead>
-                <TableHead>Students</TableHead>
-                <TableHead>Progress</TableHead>
-                <TableHead>Semester</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="min-w-[100px]">Course Code</TableHead>
+                <TableHead className="min-w-[180px]">Course Name</TableHead>
+                <TableHead className="hidden sm:table-cell">Students</TableHead>
+                <TableHead className="min-w-[140px]">Progress</TableHead>
+                <TableHead className="hidden md:table-cell">Semester</TableHead>
+                <TableHead className="text-right hidden lg:table-cell">
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -241,24 +248,32 @@ export default function DashboardPage() {
                 );
                 return (
                   <TableRow key={course.id}>
-                    <TableCell className="font-medium">{course.code}</TableCell>
-                    <TableCell>{course.name}</TableCell>
-                    <TableCell>{course.enrolledStudents}</TableCell>
+                    <TableCell className="font-medium text-sm">
+                      {course.code}
+                    </TableCell>
+                    <TableCell className="text-sm sm:text-base">
+                      {course.name}
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell text-sm">
+                      {course.enrolledStudents}
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
-                        <div className="w-20 bg-muted rounded-full h-2">
+                        <div className="w-16 sm:w-20 bg-muted rounded-full h-2">
                           <div
                             className="bg-primary h-2 rounded-full"
                             style={{ width: `${progress}%` }}
                           />
                         </div>
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                           {course.completedClasses}/{course.totalClasses}
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell>{course.semester}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="hidden md:table-cell text-sm">
+                      {course.semester}
+                    </TableCell>
+                    <TableCell className="text-right hidden lg:table-cell">
                       <Link href={`/dashboard/courses/${course.id}`}>
                         <Button variant="ghost" size="sm">
                           View Details

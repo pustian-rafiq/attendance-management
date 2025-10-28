@@ -103,7 +103,7 @@ export default function CourseDetailPage({
       {/* Course Header */}
       <Card>
         <CardHeader>
-          <div className="flex items-start justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <Badge variant="secondary" className="text-base">
@@ -111,8 +111,10 @@ export default function CourseDetailPage({
                 </Badge>
                 <Badge>{course.semester}</Badge>
               </div>
-              <CardTitle className="text-3xl">{course.name}</CardTitle>
-              <CardDescription className="text-base">
+              <CardTitle className="text-xl sm:text-2xl lg:text-3xl">
+                {course.name}
+              </CardTitle>
+              <CardDescription className="text-sm sm:text-base">
                 {department?.name} • {course.credits} Credits
               </CardDescription>
             </div>
@@ -120,7 +122,7 @@ export default function CourseDetailPage({
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
             <div className="p-4 bg-muted rounded-lg">
               <div className="flex items-center space-x-2 mb-2">
                 <Users className="h-4 w-4 text-muted-foreground" />
@@ -164,7 +166,7 @@ export default function CourseDetailPage({
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Instructor Information */}
         <Card>
           <CardHeader>
@@ -234,60 +236,85 @@ export default function CourseDetailPage({
       {/* Student Attendance */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
             <div>
-              <CardTitle>Student Attendance</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-lg sm:text-xl">
+                Student Attendance
+              </CardTitle>
+              <CardDescription className="text-sm">
                 Attendance records for enrolled students
               </CardDescription>
             </div>
-            <Link href="/dashboard/attendance">
-              <Button>Take Attendance</Button>
+            <Link href="/dashboard/attendance" className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto">Take Attendance</Button>
             </Link>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Student</TableHead>
-                <TableHead>Roll Number</TableHead>
-                <TableHead>Total Classes</TableHead>
-                <TableHead>Present</TableHead>
-                <TableHead>Absent</TableHead>
-                <TableHead>Late</TableHead>
+                <TableHead className="min-w-[180px]">Student</TableHead>
+                <TableHead className="hidden sm:table-cell">
+                  Roll Number
+                </TableHead>
+                <TableHead className="hidden md:table-cell">
+                  Total Classes
+                </TableHead>
+                <TableHead className="text-center">Present</TableHead>
+                <TableHead className="text-center">Absent</TableHead>
+                <TableHead className="text-center hidden lg:table-cell">
+                  Late
+                </TableHead>
                 <TableHead>Percentage</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead className="hidden md:table-cell">Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {studentAttendance.map((student) => (
                 <TableRow key={student.id}>
                   <TableCell>
-                    <div className="flex items-center space-x-3">
-                      <Avatar>
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                         <AvatarImage src={student.avatar} />
-                        <AvatarFallback>
+                        <AvatarFallback className="text-xs sm:text-sm">
                           {getInitials(student.name)}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="font-medium">{student.name}</span>
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-medium text-sm sm:text-base truncate">
+                          {student.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground sm:hidden">
+                          Roll: {student.rollNumber}
+                        </span>
+                      </div>
                     </div>
                   </TableCell>
-                  <TableCell>{student.rollNumber}</TableCell>
-                  <TableCell>{student.totalClasses}</TableCell>
-                  <TableCell>
-                    <Badge variant="success">{student.present}</Badge>
+                  <TableCell className="hidden sm:table-cell text-sm">
+                    {student.rollNumber}
                   </TableCell>
-                  <TableCell>
-                    <Badge variant="destructive">{student.absent}</Badge>
+                  <TableCell className="hidden md:table-cell text-sm">
+                    {student.totalClasses}
                   </TableCell>
-                  <TableCell>
-                    <Badge variant="warning">{student.late}</Badge>
+                  <TableCell className="text-center">
+                    <Badge variant="success" className="text-xs">
+                      {student.present}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <Badge variant="destructive" className="text-xs">
+                      {student.absent}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-center hidden lg:table-cell">
+                    <Badge variant="warning" className="text-xs">
+                      {student.late}
+                    </Badge>
                   </TableCell>
                   <TableCell>
                     <span
-                      className={`font-medium ${
+                      className={`font-medium text-sm ${
                         student.percentage >= 75
                           ? "text-green-600"
                           : student.percentage >= 60
@@ -298,7 +325,7 @@ export default function CourseDetailPage({
                       {student.percentage}%
                     </span>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden md:table-cell">
                     <Badge
                       variant={
                         student.percentage >= 75
@@ -307,6 +334,7 @@ export default function CourseDetailPage({
                           ? "warning"
                           : "destructive"
                       }
+                      className="text-xs"
                     >
                       {student.percentage >= 75
                         ? "Good"

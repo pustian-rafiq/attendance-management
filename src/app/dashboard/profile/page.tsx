@@ -63,15 +63,17 @@ export default function ProfilePage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">Profile</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          Profile
+        </h2>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Manage your account information and preferences
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
         {/* Profile Card */}
-        <Card className="md:col-span-1">
+        <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle>Profile Picture</CardTitle>
             <CardDescription>Your profile information</CardDescription>
@@ -118,7 +120,7 @@ export default function ProfilePage() {
         </Card>
 
         {/* Details Card */}
-        <Card className="md:col-span-2">
+        <Card className="lg:col-span-2">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
@@ -134,7 +136,7 @@ export default function ProfilePage() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input
@@ -199,12 +201,16 @@ export default function ProfilePage() {
             </div>
 
             {isEditing && (
-              <div className="flex items-center space-x-2">
-                <Button onClick={handleSave}>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <Button onClick={handleSave} className="w-full sm:w-auto">
                   <Save className="mr-2 h-4 w-4" />
                   Save Changes
                 </Button>
-                <Button variant="outline" onClick={handleCancel}>
+                <Button
+                  variant="outline"
+                  onClick={handleCancel}
+                  className="w-full sm:w-auto"
+                >
                   Cancel
                 </Button>
               </div>
@@ -229,7 +235,7 @@ export default function ProfilePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {teacherCourses.map((course) => (
                 <div
                   key={course.id}
@@ -291,7 +297,7 @@ export default function ProfilePage() {
 
       {/* Statistics */}
       {user?.role === "teacher" && (
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">

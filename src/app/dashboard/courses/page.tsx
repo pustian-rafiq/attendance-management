@@ -83,14 +83,16 @@ export default function CoursesPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">Courses</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          Courses
+        </h2>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Manage your courses and view details
         </p>
       </div>
 
       {/* Statistics */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Courses</CardTitle>
@@ -148,7 +150,7 @@ export default function CoursesPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -195,7 +197,7 @@ export default function CoursesPage() {
       </Card>
 
       {/* Courses Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.map((course) => {
           const department = departments.find(
             (d) => d.id === course.departmentId
@@ -209,37 +211,47 @@ export default function CoursesPage() {
           return (
             <Card key={course.id} className="hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <Badge variant="secondary">{course.code}</Badge>
-                    <CardTitle className="text-lg">{course.name}</CardTitle>
-                    <CardDescription>{department?.name}</CardDescription>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="space-y-1 flex-1 min-w-0">
+                    <Badge variant="secondary" className="text-xs">
+                      {course.code}
+                    </Badge>
+                    <CardTitle className="text-base sm:text-lg truncate">
+                      {course.name}
+                    </CardTitle>
+                    <CardDescription className="text-xs sm:text-sm truncate">
+                      {department?.name}
+                    </CardDescription>
                   </div>
-                  <BookOpen className="h-5 w-5 text-muted-foreground" />
+                  <BookOpen className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                   <div>
-                    <p className="text-muted-foreground">Instructor</p>
-                    <p className="font-medium">{teacher?.name}</p>
+                    <p className="text-muted-foreground text-xs">Instructor</p>
+                    <p className="font-medium text-sm truncate">
+                      {teacher?.name}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Credits</p>
-                    <p className="font-medium">{course.credits}</p>
+                    <p className="text-muted-foreground text-xs">Credits</p>
+                    <p className="font-medium text-sm">{course.credits}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Students</p>
-                    <p className="font-medium">{course.enrolledStudents}</p>
+                    <p className="text-muted-foreground text-xs">Students</p>
+                    <p className="font-medium text-sm">
+                      {course.enrolledStudents}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Semester</p>
-                    <p className="font-medium">{course.semester}</p>
+                    <p className="text-muted-foreground text-xs">Semester</p>
+                    <p className="font-medium text-sm">{course.semester}</p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">Progress</span>
                     <span className="font-medium">{progress}%</span>
                   </div>
@@ -256,7 +268,7 @@ export default function CoursesPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">
                       Avg. Attendance
                     </span>
@@ -275,19 +287,21 @@ export default function CoursesPage() {
                 </div>
 
                 <div className="space-y-2 pt-2 border-t">
-                  <p className="text-sm font-medium">Class Schedule:</p>
+                  <p className="text-xs sm:text-sm font-medium">
+                    Class Schedule:
+                  </p>
                   {course.classSchedule.map((schedule) => (
                     <div
                       key={schedule.id}
-                      className="flex items-center justify-between text-sm"
+                      className="flex items-center justify-between text-xs sm:text-sm gap-2"
                     >
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="h-3 w-3 text-muted-foreground" />
-                        <span>{schedule.dayOfWeek}</span>
+                      <div className="flex items-center space-x-1 sm:space-x-2">
+                        <Calendar className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                        <span className="truncate">{schedule.dayOfWeek}</span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <Clock className="h-3 w-3 text-muted-foreground" />
-                        <span>
+                      <div className="flex items-center space-x-1 sm:space-x-2">
+                        <Clock className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                        <span className="whitespace-nowrap text-xs">
                           {schedule.startTime} - {schedule.endTime}
                         </span>
                       </div>
