@@ -116,15 +116,15 @@ export default function LoginPage() {
                 <p className="text-muted-foreground break-all">
                   Email: teacher@gmail.com
                 </p>
-                <p className="text-muted-foreground">Password: any password</p>
+                <p className="text-muted-foreground">Password:test123</p>
               </div>
-              <div className="p-3 bg-muted rounded-lg">
+              {/* <div className="p-3 bg-muted rounded-lg">
                 <p className="font-medium mb-1">Admin Account:</p>
                 <p className="text-muted-foreground break-all">
                   Email: admin@example.com
                 </p>
                 <p className="text-muted-foreground">Password: any password</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </CardContent>

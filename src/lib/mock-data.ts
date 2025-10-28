@@ -53,7 +53,7 @@ export const departments: Department[] = [
 export const teachers: Teacher[] = [
   {
     id: "teacher-1",
-    email: "shakil@gmail.com",
+    email: "teacher@gmail.com",
     name: "Md. Shakil Siddique",
     role: "teacher",
     employeeId: "T001",
