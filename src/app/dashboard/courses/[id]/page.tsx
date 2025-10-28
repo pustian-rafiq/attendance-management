@@ -54,7 +54,7 @@ export default function CourseDetailPage({
         <BookOpen className="h-16 w-16 text-muted-foreground mb-4" />
         <h2 className="text-2xl font-bold mb-2">Course Not Found</h2>
         <p className="text-muted-foreground mb-4">
-          The course you're looking for doesn't exist.
+          The course you&apos;re looking for doesn&apos;t exist.
         </p>
         <Button onClick={() => router.back()}>Go Back</Button>
       </div>
@@ -182,7 +182,9 @@ export default function CourseDetailPage({
               <div className="space-y-1">
                 <p className="font-semibold text-lg">{teacher?.name}</p>
                 <p className="text-sm text-muted-foreground">
-                  {(teacher as any)?.designation}
+                  {teacher && "designation" in teacher
+                    ? (teacher as { designation: string }).designation
+                    : ""}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {teacher?.email}

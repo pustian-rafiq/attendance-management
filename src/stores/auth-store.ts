@@ -6,7 +6,7 @@ import { persist } from "zustand/middleware";
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password?: string) => Promise<boolean>;
   logout: () => void;
   updateUser: (user: Partial<User>) => void;
 }
@@ -16,7 +16,7 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       isAuthenticated: false,
-      login: async (email: string, password: string) => {
+      login: async (email: string) => {
         // Mock authentication - in production, this would call an API
         // For demo: any password works, just need valid email from defaultUsers
         const user = defaultUsers.find((u) => u.email === email);

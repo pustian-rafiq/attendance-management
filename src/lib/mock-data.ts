@@ -423,12 +423,6 @@ export const courses: Course[] = [
 const generateAttendanceRecords = (): AttendanceRecord[] => {
   const records: AttendanceRecord[] = [];
   const today = new Date();
-  const statuses: Array<"present" | "absent" | "late" | "excused"> = [
-    "present",
-    "absent",
-    "late",
-    "excused",
-  ];
 
   // Generate records for each course
   courses.forEach((course) => {

@@ -44,9 +44,6 @@ export default function DashboardPage() {
   const totalCourses = teacherCourses.length;
   const totalStudents = students.length;
 
-  // Today's date
-  const today = new Date().toISOString().split("T")[0];
-
   // Get today's classes
   const todayClasses = teacherCourses.filter((course) => {
     const dayOfWeek = new Date().toLocaleDateString("en-US", {
@@ -87,7 +84,7 @@ export default function DashboardPage() {
           Welcome back, {user?.name}!
         </h2>
         <p className="text-muted-foreground">
-          Here's an overview of your class attendance management
+          Here&apos;s an overview of your class attendance management
         </p>
       </div>
 
@@ -125,7 +122,7 @@ export default function DashboardPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Today's Classes</CardTitle>
+                <CardTitle>Today&apos;s Classes</CardTitle>
                 <CardDescription>{formatDate(new Date())}</CardDescription>
               </div>
               <Calendar className="h-5 w-5 text-muted-foreground" />

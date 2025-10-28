@@ -35,7 +35,7 @@ export default function LoginPage() {
       } else {
         setError("Invalid email or password");
       }
-    } catch (err) {
+    } catch {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -65,7 +65,7 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="teacher@example.com"
+                placeholder="teacher@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -114,17 +114,17 @@ export default function LoginPage() {
               <div className="p-3 bg-muted rounded-lg">
                 <p className="font-medium mb-1">Teacher Account:</p>
                 <p className="text-muted-foreground">
-                  Email: teacher@example.com
+                  Email: teacher@gmail.com
                 </p>
-                <p className="text-muted-foreground">Password: any password</p>
+                <p className="text-muted-foreground">Password: test123</p>
               </div>
-              <div className="p-3 bg-muted rounded-lg">
+              {/* <div className="p-3 bg-muted rounded-lg">
                 <p className="font-medium mb-1">Admin Account:</p>
                 <p className="text-muted-foreground">
                   Email: admin@example.com
                 </p>
                 <p className="text-muted-foreground">Password: any password</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </CardContent>

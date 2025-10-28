@@ -21,12 +21,14 @@ npm run dev
 ## 🪟 Windows Users
 
 ### Method 1: Double-click Script
+
 1. Open the `attendance-management` folder
 2. Double-click `start.bat`
 3. Browser will show login page
 4. Use: `teacher@example.com` (any password)
 
 ### Method 2: Command Line
+
 ```cmd
 cd attendance-management
 npm run dev
@@ -37,6 +39,7 @@ npm run dev
 ## 🐧 Linux/Mac Users
 
 ### Method 1: Use Shell Script
+
 ```bash
 cd attendance-management
 chmod +x start.sh
@@ -44,6 +47,7 @@ chmod +x start.sh
 ```
 
 ### Method 2: NPM Command
+
 ```bash
 cd attendance-management
 npm run dev
@@ -54,16 +58,19 @@ npm run dev
 ## 🎓 Demo Accounts
 
 ### Teacher Account (Full Access):
+
 - **Email**: teacher@example.com
 - **Password**: any text (mock authentication)
 - **Features**: Take attendance, manage courses, view reports
 
 ### Admin Account:
+
 - **Email**: admin@example.com
 - **Password**: any text
 - **Features**: Full system access
 
 ### Other Teacher Accounts:
+
 - maria.garcia@example.com
 - rahman.ali@example.com
 - lisa.chen@example.com
@@ -73,32 +80,38 @@ npm run dev
 ## 📋 What to Do After Login
 
 ### 1. Explore Dashboard
+
 - View statistics
 - Check today's classes
 - See course overview
 
 ### 2. Take Attendance
+
 - Click "Take Attendance" in sidebar
 - Select a course
 - Mark students (Present/Absent/Late/Excused)
 - Click "Save Attendance"
 
 ### 3. View Students
+
 - Click "Students"
 - Use search and filters
 - Export to CSV
 
 ### 4. Manage Courses
+
 - Click "Courses"
 - View course cards
 - Click "View Details" for any course
 
 ### 5. Generate Reports
+
 - Click "Reports"
 - View student attendance reports
 - Export data to CSV
 
 ### 6. Update Profile
+
 - Click "Profile"
 - Edit your information
 - Save changes
@@ -108,6 +121,7 @@ npm run dev
 ## 🚀 Production Mode
 
 ### Build and Run:
+
 ```bash
 cd attendance-management
 npm run build
@@ -115,6 +129,7 @@ npm start
 ```
 
 ### Or Use Script (Windows):
+
 ```cmd
 build-and-start.bat
 ```
@@ -124,18 +139,23 @@ build-and-start.bat
 ## ❓ Common Questions
 
 ### Q: What port does it use?
+
 **A**: Port 3001 by default. Change in `package.json` if needed.
 
 ### Q: Do I need a database?
+
 **A**: No! Uses mock data. Perfect for testing and presentation.
 
 ### Q: Can I modify the data?
+
 **A**: Yes! Edit `src/lib/mock-data.ts` to add/modify students, courses, etc.
 
 ### Q: Is it mobile-friendly?
+
 **A**: Yes! Fully responsive. Test on your phone.
 
 ### Q: Can I deploy it?
+
 **A**: Yes! See [QUICK_DEPLOY.md](./QUICK_DEPLOY.md) for instructions.
 
 ---
@@ -143,6 +163,7 @@ build-and-start.bat
 ## 🔧 Troubleshooting
 
 ### Issue: Port already in use
+
 ```bash
 # Option 1: Kill the process
 taskkill /F /IM node.exe
@@ -152,6 +173,7 @@ taskkill /F /IM node.exe
 ```
 
 ### Issue: npm install fails
+
 ```bash
 # Clear cache and retry
 npm cache clean --force
@@ -160,12 +182,14 @@ npm install
 ```
 
 ### Issue: Module not found
+
 ```bash
 # Reinstall dependencies
 npm install
 ```
 
 ### Issue: Build errors
+
 ```bash
 # Clean and rebuild
 rm -rf .next
@@ -177,12 +201,14 @@ npm run build
 ## 📊 System Requirements
 
 ### Minimum:
+
 - **Node.js**: 18.0 or higher
 - **RAM**: 4GB
 - **Disk**: 500MB free space
 - **Browser**: Modern browser (Chrome, Firefox, Edge, Safari)
 
 ### Recommended:
+
 - **Node.js**: 20.0 or higher
 - **RAM**: 8GB
 - **Disk**: 1GB free space
@@ -195,21 +221,26 @@ npm run build
 ### Complete Setup Process:
 
 1. **Install Node.js** (if not installed):
+
    - Download from: https://nodejs.org
    - Install LTS version
 
 2. **Clone or Navigate to Project**:
+
 ```bash
 cd attendance-management
 ```
 
 3. **Install Dependencies**:
+
 ```bash
 npm install
 ```
-   *This may take 2-3 minutes*
+
+_This may take 2-3 minutes_
 
 4. **Start Application**:
+
 ```bash
 npm run dev
 ```
@@ -252,7 +283,9 @@ After running the app, test these features:
 ## 🎨 Customization
 
 ### Change App Name:
+
 Edit `src/app/layout.tsx`:
+
 ```typescript
 export const metadata = {
   title: "Your Custom Title",
@@ -261,9 +294,11 @@ export const metadata = {
 ```
 
 ### Change Colors:
+
 Edit `tailwind.config.js` and `src/app/globals.css`
 
 ### Add More Students:
+
 Edit `src/lib/mock-data.ts` in the `students` array
 
 ---
@@ -280,6 +315,7 @@ Edit `src/lib/mock-data.ts` in the `students` array
 ✅ **Easy to Deploy**
 
 ### Demo Flow:
+
 1. Show login page
 2. Login and show dashboard
 3. Take attendance demo
@@ -324,4 +360,3 @@ npm run dev
 **Login with**: teacher@example.com
 
 **Enjoy your attendance management system!** 🎓✨
-
